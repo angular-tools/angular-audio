@@ -123,7 +123,7 @@
                 restrict: 'A',
                 replace: true,
                 require: 'ngModel',
-                scope: {sound: '=', recBtn: '@', stopBtn: '@'},
+                scope: {recBtn: '@', stopBtn: '@'},
                 templateUrl: basePath + '/templates/audio-recorder.html',
                 link: function ($scope, element, attrs, ngModel) {
                     if ($('#wami').length == 0) {
@@ -238,7 +238,7 @@
             return {
                 restrict: 'A',
                 replace: true,
-                scope: {sound: '@', style: '@', playBtn: '@', stopBtn: '@', hideDisabled: '@', autoplay: '@', btnClass: '@', btnText: '@'},
+                scope: {sound: '@', skin: '@', playBtn: '@', stopBtn: '@', hideDisabled: '@', autoplay: '@', btnClass: '@', btnText: '@'},
                 templateUrl: basePath + '/templates/audio-player.html',
                 link: function ($scope, element, attrs) {
                     //if ($('#mp3Player').length == 0) {                        element.append('<div id="mp3Player"></div>');                    }
@@ -247,7 +247,7 @@
                     var playback, flashId;
 
                     $scope.defaultBtn = function (type) {
-                        return $scope.defaultBtns[$scope.style || 'round'][type];
+                        return $scope.defaultBtns[$scope.skin || 'round'][type];
                     };
 
                     $scope.init = function () {
