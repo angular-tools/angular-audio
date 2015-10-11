@@ -1,10 +1,6 @@
 (function () {
     'use strict';
 
-    var scripts = document.getElementsByTagName("script");
-    var currentScriptPath = scripts[scripts.length - 1].src;
-    var basePath = currentScriptPath.substring(0, currentScriptPath.lastIndexOf('/') + 1) + '..';
-
     angular.module('angularAudio', ['notice'])
         .factory("$audio", ['$timeout', '$q', function ($timeout, $q) {
             var audioService = {}, recorder;
@@ -40,12 +36,12 @@
 
                         audio_context = new AudioContext;
 
-                        require(basePath + '/templates/html5/recorder.js', function () {
+                        require('/static/bower_components/angular-audio/src/templates/html5/recorder.js', function () {
                             try {
                                 navigator.getUserMedia({audio: true}, function (stream) {
                                     var input = audio_context.createMediaStreamSource(stream);
 
-                                    recorder = new Recorder(input, {workerPath: basePath + '/templates/html5/recorderWorker.js'});
+                                    recorder = new Recorder(input, {workerPath: '/static/bower_components/angular-audio/src/templates/html5/recorderWorker.js'});
                                     deferred.resolve(recorder);
                                 }, function (e) {
                                     deferred.reject('Unable to access microphone: ' + e.name);
@@ -66,7 +62,7 @@
                 var deferred = $q.defer();
 
                 if (typeof(swfobject) === 'undefined') {
-                    require(basePath + '/templates/flash/swfobject.js', function () {audioService.startFlash(deferred)});
+                    require('/static/bower_components/angular-audio/src/templates/flash/swfobject.js', function () {audioService.startFlash(deferred)});
                 } else if (typeof(Wami) === 'undefined') {
                     audioService.startFlash(deferred);
                 } else {
@@ -78,25 +74,25 @@
 
             audioService.getMp3Player = function (flashId) {
                 if (typeof(swfobject) === 'undefined') {
-                    require(basePath + '/templates/flash/swfobject.js', function () {audioService.startMp3Player(flashId)});
+                    require('/static/bower_components/angular-audio/src/templates/flash/swfobject.js', function () {audioService.startMp3Player(flashId)});
                 } else {
                     audioService.startMp3Player(flashId);
                 }
             };
 
             audioService.startMp3Player = function (flashId) {
-                var swf = basePath + '/templates/flash/player_mp3_js.swf';
+                var swf = '/static/bower_components/angular-audio/src/templates/flash/player_mp3_js.swf';
                 swfobject.embedSWF(swf, flashId, 1, 1, "9", "#ffffff", {listener: flashId + 'Listener', interval: 1000}, {menu: false, allowscriptaccess: 'always'}, {id: flashId});
             };
 
             audioService.startFlash = function (deferred) {
                 if (swfobject.hasFlashPlayerVersion("9.0")) {
-                    require(basePath + '/templates/flash/recorder.js',
+                    require('/static/bower_components/angular-audio/src/templates/flash/recorder.js',
                         function (util) {
                             try {
                                 Wami.setup({
                                     id: "wami",
-                                    swfUrl: basePath + '/templates/flash/wami.swf',
+                                    swfUrl: '/static/bower_components/angular-audio/src/templates/flash/Wami.swf',
                                     onReady: function () {
                                         deferred.resolve(Wami);
                                     },
@@ -124,7 +120,7 @@
                 replace: true,
                 require: 'ngModel',
                 scope: {recBtn: '@', stopBtn: '@'},
-                templateUrl: basePath + '/templates/audio-recorder.html',
+                templateUrl: '/static/bower_components/angular-audio/src/templates/audio-recorder.html',
                 link: function ($scope, element, attrs, ngModel) {
                     if ($('#wami').length == 0) {
                         element.append('<div id="wami"></div>');
@@ -239,7 +235,7 @@
                 restrict: 'A',
                 replace: true,
                 scope: {sound: '@', skin: '@', playBtn: '@', stopBtn: '@', hideDisabled: '@', autoplay: '@', btnClass: '@', btnText: '@'},
-                templateUrl: basePath + '/templates/audio-player.html',
+                templateUrl: '/static/bower_components/angular-audio/src/templates/audio-player.html',
                 link: function ($scope, element, attrs) {
                     //if ($('#mp3Player').length == 0) {                        element.append('<div id="mp3Player"></div>');                    }
                 },
