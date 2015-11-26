@@ -27,7 +27,7 @@
                 var audio_context;
 
                 if (typeof(recorder) !== 'undefined') {
-                    console.log('sent');
+                    //console.log('sent');
                     deferred.resolve(recorder);
                 } else {
                     try {
@@ -163,7 +163,7 @@
                     };
 
                     $scope.flashMicFail = function (reason) {
-                        console.log('flash mic fail too');
+                        //console.log('flash mic fail too');
                         $notice.error(reason);
                         $scope.disabled = true;
                     };
@@ -196,7 +196,7 @@
                         Wami.startRecording($scope.soundRecorderURL,
                             Wami.nameCallback(function OnRecordStart(e) {
                                 $timeout(function () {
-                                    console.log('flash recording started', e);
+                                    //console.log('flash recording started', e);
                                     $scope.sound = null;
                                     $scope.recording = true;
                                 });
@@ -339,5 +339,3 @@
             }
         }]);
 })();
-
-
