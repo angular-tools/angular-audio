@@ -142,8 +142,8 @@
                         $scope.fn = "snd_" + Math.random().toString(36).substring(7);
                         $scope.soundRecorderURL = '/generic/sounder-recorder/' + $scope.fn;
 
-                        $scope.defaultRecBtn = '<span class="fa-stack fa-2x text-danger"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-stack-1x fa-microphone fa-inverse"></i></span>';
-                        $scope.defaultStopBtn = '<span ng-show="recording" class="fa-stack fa-2x text-danger"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-stack-1x fa-stop fa-inverse"></i></span>';
+                        $scope.defaultRecBtn = '<i ng-show="!recording" class="fa fa-microphone text-danger"></i>';
+                        $scope.defaultStopBtn = '<i ng-show="recording" class="fa fa-stop-circle text-danger"></i>';
 
                         $audio.getMicHtml5().then($scope.micHtml5Connect, $scope.micHtml5Fail);
                     };
@@ -248,14 +248,17 @@
 
                     $scope.init = function () {
                         $scope.defaultBtns = {
-                            icon: {play: '<i class="fa fa-play ' + ($scope.btnClass) + '"></i>', stop: '<i class="fa fa-stop ' + ($scope.btnClass) + '"></i>'},
+                            icon: {
+                                play: '<i class="fa fa-play ' + ($scope.btnClass) + '"></i>',
+                                stop: '<i class="fa fa-stop ' + ($scope.btnClass) + '"></i>'
+                            },
                             simple: {
                                 play: '<span class="btn ' + ($scope.btnClass || 'btn-success') + '"><i class="fa fa-play"></i> ' + ($scope.btnText || 'Play') + '</span>',
                                 stop: '<span class="btn ' + ($scope.btnClass || 'btn-success') + '"><i class="fa fa-stop"></i> ' + ($scope.btnText || 'Stop') + '</span>'
                             },
                             round: {
-                                play: '<span class="fa-stack fa-2x ' + ($scope.btnClass || 'text-success') + '"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-stack-1x fa-play fa-inverse"></i></span>',
-                                stop: '<span class="fa-stack fa-2x ' + ($scope.btnClass || 'text-success') + '"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-stack-1x fa-stop fa-inverse"></i></span>'
+                                play: '<i class="fa fa-play-circle ' + ($scope.btnClass) + '"></i>',
+                                stop: '<i class="fa fa-stop-circle ' + ($scope.btnClass) + '"></i>'
                             }
                         };
 
